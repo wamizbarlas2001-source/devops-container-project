@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,5 +30,15 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Docker image
-        run: docker build -t devops-container-app:1.0 .
+        run: docker build -t ghcr.io/wamizbarlas2001-source/devops-container-app:1.0 .
+
+      - name: Push Docker image
+        run: docker push ghcr.io/wamizbarlas2001-source/devops-container-app:1.0
