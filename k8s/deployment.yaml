@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-container-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devops-container-app
+  template:
+    metadata:
+      labels:
+        app: devops-container-app
+    spec:
+      containers:
+        - name: devops-container-app
+          image: devops-container-app:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
