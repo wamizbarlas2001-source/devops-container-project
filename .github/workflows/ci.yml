@@ -38,7 +38,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/wamizbarlas2001-source/devops-container-app:1.0 .
+        run: docker build -t ghcr.io/wamizbarlas2001-source/devops-container-app:${{ github.sha }} .
 
       - name: Push Docker image
-        run: docker push ghcr.io/wamizbarlas2001-source/devops-container-app:1.0
+        run: docker push ghcr.io/wamizbarlas2001-source/devops-container-app:${{ github.sha }}
